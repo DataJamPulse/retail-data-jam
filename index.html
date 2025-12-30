@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Data Jam Retail | Footfall Analytics for High Street Businesses</title>
+    <meta name="description" content="Data Jam helps small and medium businesses understand their footfall. Real-time customer counting for shops, cafes, restaurants and high street retailers. Know your busiest times, optimize staffing, grow your business.">
+    <meta name="keywords" content="footfall counter, retail analytics, customer counting, shop footfall, high street analytics, SMB footfall data, store traffic counter, retail intelligence, customer flow analysis">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="author" content="Data Jam">
+    <link rel="canonical" href="https://retail.data-jam.com/">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Data Jam Retail | Footfall Analytics for Your Business">
+    <meta property="og:description" content="Understand your customer traffic. Real-time footfall counting for shops, cafes, and high street businesses.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://retail.data-jam.com/">
+    <meta property="og:image" content="https://retail.data-jam.com/images/logo-gradient.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Data Jam Retail | Real-Time Footfall Analytics">
+    <meta name="twitter:description" content="Know when your customers visit. Optimize staffing. Grow your business with data.">
+
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Data Jam Retail",
+        "url": "https://retail.data-jam.com",
+        "logo": "https://retail.data-jam.com/images/logo-gradient.png",
+        "description": "Data Jam Retail provides real-time footfall analytics for small and medium businesses. Our JamBox sensor helps high street shops, cafes, restaurants and retailers understand customer traffic patterns.",
+        "areaServed": "Worldwide",
+        "slogan": "Know Your Footfall. Grow Your Business.",
+        "knowsAbout": [
+            "Retail footfall analytics",
+            "Customer counting",
+            "High street traffic measurement",
+            "Store analytics",
+            "SMB business intelligence",
+            "Customer flow analysis"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "email": "hello@data-jam.com",
+            "availableLanguage": "English"
+        }
+    }
+    </script>
+
+    <!-- Schema.org Product -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "JamBox for Retail",
+        "description": "A compact, privacy-compliant footfall counter that provides real-time customer traffic data for retail businesses.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Data Jam"
+        },
+        "category": "Retail Analytics Technology"
+    }
+    </script>
+
+    <!-- Schema.org FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is footfall analytics?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Footfall analytics is the measurement and analysis of customer traffic in and around your business. Data Jam provides real-time counting of people passing by or entering your premises, helping you understand peak hours, quiet periods, and customer patterns."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does the JamBox count customers?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "JamBox detects anonymized mobile device signals within its range. It counts the number of devices (and therefore people) near your business without collecting any personal data. No cameras, no facial recognition, completely privacy-compliant."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is footfall counting GDPR compliant?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Data Jam's JamBox uses no cameras and collects no personal data. We count anonymized device signals only, making it fully GDPR compliant and suitable for any business concerned about customer privacy."
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <p class="splash-welcome">Welcome to</p>
+            <h1 class="splash-title">Retail</h1>
+            <img src="images/logo-gradient.png" alt="Data Jam" class="splash-logo">
+        </div>
+        <div class="splash-gradient-bg"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-gradient.png" alt="Data Jam Retail" class="logo-img">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="main-content" class="hero hero-home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Know Your Footfall. Grow Your Business.</h1>
+            <p class="hero-subtitle">Real-time customer counting for shops, cafes, and high street businesses. Understand when customers visit, optimize your staffing, and make data-driven decisions.</p>
+            <div class="hero-cta">
+                <a href="#how-it-works" class="btn btn-primary">See How It Works</a>
+                <a href="contact.html" class="btn btn-secondary">Get Started</a>
+            </div>
+            <div class="trust-badges">
+                <span class="trust-badge">No Cameras</span>
+                <span class="trust-badge">Privacy-First</span>
+                <span class="trust-badge">GDPR Compliant</span>
+            </div>
+        </div>
+        <div class="hero-pattern" style="background-image: url('images/pattern-wavy.jpg');"></div>
+    </section>
+
+    <!-- Social Proof Marquee -->
+    <section class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">Real Data</span>
+                <span class="marquee-item">Real Time</span>
+                <span class="marquee-item">Know Your Peak Hours</span>
+                <span class="marquee-item">GDPR Compliant</span>
+                <span class="marquee-item">No Cameras</span>
+                <span class="marquee-item">Privacy First</span>
+                <span class="marquee-item">Instant Setup</span>
+                <span class="marquee-item">Affordable</span>
+                <span class="marquee-item">Real Data</span>
+                <span class="marquee-item">Real Time</span>
+                <span class="marquee-item">Know Your Peak Hours</span>
+                <span class="marquee-item">GDPR Compliant</span>
+                <span class="marquee-item">No Cameras</span>
+                <span class="marquee-item">Privacy First</span>
+                <span class="marquee-item">Instant Setup</span>
+                <span class="marquee-item">Affordable</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Problem -->
+    <section class="section what-we-do">
+        <div class="container">
+            <h2 class="animate-on-scroll">Running a Business Shouldn't Mean Guessing</h2>
+            <p class="section-intro animate-on-scroll">Most high street businesses have no idea how many people walk past their door each day. They guess when to staff up, wonder why some days are slow, and can't prove their location's value to landlords or investors.</p>
+
+            <div class="features-grid stagger-children">
+                <div class="feature animate-on-scroll">
+                    <h3>Know Your Busy Times</h3>
+                    <p>See exactly when customers visit, hour by hour. No more guessing about peak periods or staffing blind.</p>
+                </div>
+                <div class="feature animate-on-scroll">
+                    <h3>Understand Quiet Periods</h3>
+                    <p>Identify your slow times and run targeted promotions, adjust opening hours, or plan staff breaks accordingly.</p>
+                </div>
+                <div class="feature animate-on-scroll">
+                    <h3>Measure Marketing Impact</h3>
+                    <p>See if that A-board, window display, or social media post actually brought more people through the door.</p>
+                </div>
+                <div class="feature animate-on-scroll">
+                    <h3>Prove Your Location's Value</h3>
+                    <p>Negotiate rent with real data. Show landlords and investors exactly how much foot traffic your business attracts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The JamBox -->
+    <section class="section jambox-intro section-with-pattern" id="how-it-works">
+        <div class="decorative-pattern pattern-left animate-float" style="background-image: url('images/pattern-gradient-wave.png');"></div>
+        <div class="container">
+            <div class="jambox-showcase">
+                <div class="jambox-content animate-on-scroll">
+                    <p class="section-eyebrow">Simple Setup</p>
+                    <h2>JamBox</h2>
+                    <p class="jambox-tagline">Your Footfall Counter</p>
+                    <p>A compact device no larger than a walnut that counts customers automatically. Just plug it in, connect to WiFi, and start seeing your footfall data within minutes.</p>
+
+                    <ul class="jambox-specs">
+                        <li><strong>Counts passersby</strong> — Know how many people walk past your shop</li>
+                        <li><strong>Real-time data</strong> — See your footfall hour by hour, day by day</li>
+                        <li><strong>No cameras</strong> — Completely privacy-friendly, GDPR compliant</li>
+                        <li><strong>Simple setup</strong> — Just power and WiFi, nothing else needed</li>
+                        <li><strong>Weather-proof insights</strong> — See how rain or sunshine affects your traffic</li>
+                    </ul>
+
+                    <a href="contact.html" class="btn btn-primary">Get JamBox for Your Business</a>
+                </div>
+                <div class="jambox-image animate-on-scroll glow-on-visible">
+                    <img src="images/jambox-branded.jpg" alt="JamBox - Footfall Counter for Retail" class="product-img">
+                    <div class="jambox-badge">
+                        <span class="badge-text">Real Data<br>Real Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works-section">
+        <div class="container">
+            <h2 class="animate-on-scroll">How It Works</h2>
+            <p class="section-intro animate-on-scroll">From setup to insights in minutes, not months.</p>
+
+            <div class="steps-container stagger-children">
+                <div class="step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    </div>
+                    <h3>Plug In JamBox</h3>
+                    <p>Connect to power and WiFi. Place near your entrance or window. That's the entire setup.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    </div>
+                    <h3>Count Automatically</h3>
+                    <p>JamBox detects mobile devices nearby, counting passersby anonymously without any cameras.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    </div>
+                    <h3>See Your Data</h3>
+                    <p>Log into your dashboard and see footfall by hour, day, and week. Spot patterns instantly.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <h3>Make Better Decisions</h3>
+                    <p>Staff smarter, market better, and grow your business with real data instead of guesswork.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section why-datajam section-with-pattern" id="benefits">
+        <div class="decorative-pattern pattern-bottom-left" style="background-image: url('images/pattern-gradient-burst.png');"></div>
+        <div class="container">
+            <h2 class="animate-on-scroll">Why High Street Businesses Choose Data Jam</h2>
+
+            <div class="comparison stagger-children">
+                <div class="comparison-item animate-on-scroll">
+                    <h3>Affordable for SMBs</h3>
+                    <p>Enterprise footfall solutions cost thousands. JamBox gives you the same insights at a fraction of the price, designed specifically for independent businesses.</p>
+                </div>
+                <div class="comparison-item animate-on-scroll">
+                    <h3>No Technical Skills Needed</h3>
+                    <p>If you can plug in a phone charger and connect to WiFi, you can set up JamBox. No IT department required, no complex installation.</p>
+                </div>
+                <div class="comparison-item animate-on-scroll">
+                    <h3>Privacy Your Customers Trust</h3>
+                    <p>No cameras, no facial recognition, no personal data. JamBox counts anonymously, so you get insights without creeping anyone out.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section use-cases" id="use-cases">
+        <div class="container">
+            <h2 class="animate-on-scroll">Perfect for Every High Street Business</h2>
+            <p class="section-intro animate-on-scroll">Whether you're selling coffee or cutting hair, footfall data helps you make smarter decisions.</p>
+
+            <div class="use-cases-grid stagger-children">
+                <div class="use-case animate-on-scroll">
+                    <h3>Retail Shops</h3>
+                    <p>Know your busiest hours to schedule staff. See which window displays bring more people in. Measure the impact of sales and promotions.</p>
+                </div>
+                <div class="use-case animate-on-scroll">
+                    <h3>Cafes & Restaurants</h3>
+                    <p>Optimize kitchen prep for rush hours. Schedule staff shifts based on real traffic patterns. Identify the best times for promotions.</p>
+                </div>
+                <div class="use-case animate-on-scroll">
+                    <h3>Salons & Barbershops</h3>
+                    <p>Fill quiet appointment slots with walk-in promotions. Understand which days need more stylists on the floor.</p>
+                </div>
+                <div class="use-case animate-on-scroll">
+                    <h3>Gyms & Studios</h3>
+                    <p>Schedule classes when people actually want to come. See how membership drives affect foot traffic. Plan maintenance during quiet periods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bold Statement -->
+    <section class="statement-section">
+        <div class="container">
+            <h2 class="statement-text animate-on-scroll">Stop guessing. Start knowing.</h2>
+        </div>
+    </section>
+
+    <!-- Example Insights -->
+    <section class="section case-study-section" id="case-study">
+        <div class="container">
+            <h2 class="animate-on-scroll">What You'll Discover</h2>
+            <p class="section-intro animate-on-scroll">Real insights from real businesses using Data Jam to understand their footfall.</p>
+
+            <div class="case-study-stats stagger-children">
+                <div class="stat-card-large animate-on-scroll">
+                    <span class="stat-number">Saturday</span>
+                    <span class="stat-label">Your Busiest Day</span>
+                    <p class="stat-detail">Most retail businesses see 2-3x more traffic on Saturdays. Know exactly how much busier your weekends are.</p>
+                </div>
+                <div class="stat-card-large animate-on-scroll">
+                    <span class="stat-number">12-2pm</span>
+                    <span class="stat-label">Your Peak Hours</span>
+                    <p class="stat-detail">Lunch rush? After-work crowd? Discover when your customers actually visit so you're always ready.</p>
+                </div>
+                <div class="stat-card-large animate-on-scroll">
+                    <span class="stat-number">Rainy Days</span>
+                    <span class="stat-label">Weather Impact</span>
+                    <p class="stat-detail">See how weather affects your traffic. Some businesses boom when it rains, others don't. Know which you are.</p>
+                </div>
+                <div class="stat-card-large animate-on-scroll">
+                    <span class="stat-number">Events</span>
+                    <span class="stat-label">Local Impact</span>
+                    <p class="stat-detail">Local market day? Festival weekend? See exactly how much local events boost your foot traffic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="section platform-section">
+        <div class="container">
+            <h2 class="animate-on-scroll">Your Dashboard, Your Insights</h2>
+            <p class="section-intro animate-on-scroll">Simple, clear data that helps you make better decisions.</p>
+
+            <!-- Portal Screenshots Gallery -->
+            <div class="platform-gallery stagger-children">
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/portal-dashboard.png" alt="Data Jam Portal - Footfall Dashboard" class="screenshot-img">
+                    <p class="gallery-caption">Real-time footfall dashboard with hourly breakdown</p>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="images/portal-map.png" alt="Data Jam Portal - Location View" class="screenshot-img">
+                    <p class="gallery-caption">See all your locations at a glance</p>
+                </div>
+            </div>
+
+            <div class="features-grid stagger-children">
+                <div class="feature animate-on-scroll">
+                    <h3>Hourly Breakdowns</h3>
+                    <p>See exactly when customers pass by, hour by hour. Identify your peak times and quiet periods at a glance.</p>
+                </div>
+                <div class="feature animate-on-scroll">
+                    <h3>Weekly Patterns</h3>
+                    <p>Compare days of the week. See if Tuesdays are really as slow as you think, or if Saturdays are worth staying open late.</p>
+                </div>
+                <div class="feature animate-on-scroll">
+                    <h3>Trend Analysis</h3>
+                    <p>Watch your footfall over weeks and months. See if your marketing is working and your business is growing.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative Pattern -->
+        <div class="decorative-pattern pattern-right" style="background-image: url('images/pattern-gradient-burst.png');"></div>
+    </section>
+
+    <!-- Second Bold Statement -->
+    <section class="statement-section" style="min-height: 40vh;">
+        <div class="container">
+            <h2 class="statement-text-outline animate-on-scroll">Data-driven decisions for every business.</h2>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <h2 class="animate-on-scroll">Frequently Asked Questions</h2>
+
+            <div class="faq-list stagger-children">
+                <details class="faq-item animate-on-scroll">
+                    <summary>How does JamBox count people without cameras?</summary>
+                    <p>JamBox detects the signals that mobile phones naturally emit when searching for WiFi networks. It counts these signals anonymously without collecting any personal information. No cameras, no facial recognition, no tracking individuals.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>Is this legal and GDPR compliant?</summary>
+                    <p>Yes. JamBox counts anonymized signals only. We don't collect personal data, don't identify individuals, and don't track anyone. It's been designed from the ground up to respect privacy while giving you the insights you need.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>How hard is it to set up?</summary>
+                    <p>If you can plug in a lamp and connect a phone to WiFi, you can set up JamBox. It takes about 5 minutes. No drilling, no wiring, no IT support needed.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>What kind of businesses use this?</summary>
+                    <p>Any business that wants to understand their customer traffic: shops, cafes, restaurants, salons, gyms, galleries, pop-ups, and more. If people walk past or through your business, JamBox can count them.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>How accurate is it?</summary>
+                    <p>Very accurate for understanding patterns. JamBox counts mobile devices, and since most people carry phones, it gives you a reliable picture of foot traffic. It's designed to show you trends and patterns, not exact headcounts.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>Can I try it before committing?</summary>
+                    <p>Yes! Get in touch and we'll set up a trial so you can see your own footfall data before making any decisions.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>What does it cost?</summary>
+                    <p>JamBox is designed to be affordable for small businesses. Contact us for current pricing and see if there's a package that fits your needs.</p>
+                </details>
+
+                <details class="faq-item animate-on-scroll">
+                    <summary>Do I need multiple JamBoxes for my business?</summary>
+                    <p>Most small shops, cafes, and salons only need one JamBox. Larger premises or businesses wanting to measure different areas might benefit from multiple units. We'll help you figure out what's right for your space.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Marquee -->
+    <section class="marquee-section">
+        <div class="marquee-track" style="animation-direction: reverse;">
+            <div class="marquee-content">
+                <span class="marquee-item">Get Started Today</span>
+                <span class="marquee-item">Real Data</span>
+                <span class="marquee-item">Real Results</span>
+                <span class="marquee-item">Grow Your Business</span>
+                <span class="marquee-item">Get Started Today</span>
+                <span class="marquee-item">Real Data</span>
+                <span class="marquee-item">Real Results</span>
+                <span class="marquee-item">Grow Your Business</span>
+                <span class="marquee-item">Get Started Today</span>
+                <span class="marquee-item">Real Data</span>
+                <span class="marquee-item">Real Results</span>
+                <span class="marquee-item">Grow Your Business</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section animate-on-scroll animate-scale">
+        <div class="container">
+            <h2>Ready to Understand Your Footfall?</h2>
+            <p>Join businesses across the UK using Data Jam to make smarter decisions with real customer data.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary">Get Started</a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>Data Jam Retail</h4>
+                    <p>Real-time footfall analytics for high street businesses. Know your customers, grow your business.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#use-cases">Use Cases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@data-jam.com">hello@data-jam.com</a></li>
+                        <li><a href="tel:+447827813388">+44 7827 813388</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/data-jam" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/data_jam" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-banner-content">
+            <p>We use cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.</p>
+            <div class="cookie-banner-buttons">
+                <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Decline</button>
+                <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
