@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Case Study: NYC Flagship Store | Data Jam Retail</title>
+    <meta name="description" content="How a Times Square retailer used JamBox footfall analytics to optimize staffing, reduce costs, and increase conversions during the holiday season.">
+    <meta name="keywords" content="retail footfall case study, Times Square retail analytics, holiday season footfall, store traffic analysis">
+
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Data Jam">
+    <link rel="canonical" href="https://retail.data-jam.com/case-study-nyc-retail">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Case Study: NYC Flagship Store | Data Jam Retail">
+    <meta property="og:description" content="How a Times Square retailer used footfall analytics to optimize their holiday season.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://retail.data-jam.com/case-study-nyc-retail">
+
+    <style>
+        .case-study-hero {
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.2) 0%, rgba(233, 75, 82, 0.15) 100%);
+            padding: 100px 0 60px;
+        }
+        .case-study-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .meta-item {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 5px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.1) 0%, rgba(233, 75, 82, 0.05) 100%);
+            border: 1px solid rgba(230, 47, 110, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #E62F6E 0%, #E94B52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .insight-block {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid #E62F6E;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .insight-block h4 {
+            color: #E62F6E;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .chart-placeholder {
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 60px 30px;
+            text-align: center;
+            color: #666;
+            margin: 30px 0;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #E62F6E, #E94B52);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: #E62F6E;
+            border-radius: 50%;
+        }
+        .timeline-date {
+            color: #E62F6E;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .results-highlight {
+            background: linear-gradient(135deg, #E62F6E 0%, #E94B52 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            color: #fff;
+        }
+        .results-highlight h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .result-item {
+            text-align: center;
+        }
+        .result-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .quote-block {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+        }
+        .quote-block::before {
+            content: '"';
+            font-size: 4rem;
+            color: #E62F6E;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ddd;
+            margin-bottom: 20px;
+            padding-left: 40px;
+        }
+        .quote-author {
+            color: #999;
+            padding-left: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-gradient.png" alt="Data Jam Retail" class="logo-img">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#benefits">Benefits</a></li>
+                <li><a href="index.html#use-cases">Use Cases</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="case-study-hero">
+        <div class="container">
+            <p class="hero-subtitle" style="color: #E62F6E; margin-bottom: 10px;">CASE STUDY</p>
+            <h1>NYC Flagship Retailer Optimizes Holiday Staffing with Real-Time Footfall Data</h1>
+            <p class="lead" style="max-width: 700px;">How a Times Square store used JamBox to understand customer traffic patterns, optimize staff scheduling, and maximize conversions during the busiest shopping season of the year.</p>
+
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Industry</div>
+                    <div class="meta-value">Fashion Retail</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">Times Square, NYC</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Period</div>
+                    <div class="meta-value">December 2024</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Sensor</div>
+                    <div class="meta-value">Store Entrance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Stats -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center">The Numbers</h2>
+            <p class="text-center" style="color: #999; max-width: 600px; margin: 0 auto 40px;">One month of footfall data from JamBox revealed powerful insights about customer behaviour.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">2.9M+</div>
+                    <div class="stat-label">Total visitors tracked in December</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">94,237</div>
+                    <div class="stat-label">Average daily footfall</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">153,406</div>
+                    <div class="stat-label">Peak day (Dec 21)</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">+23%</div>
+                    <div class="stat-label">Weekend vs weekday traffic</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>The Challenge</h2>
+            <p class="lead">Before JamBox, this flagship retailer was flying blind during their most critical trading period.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div class="animate-on-scroll">
+                    <h4 style="color: #E62F6E;">Unpredictable Staffing</h4>
+                    <p>Managers scheduled staff based on gut feeling, often leaving the store overstaffed during quiet periods and understaffed during rushes.</p>
+                </div>
+                <div class="animate-on-scroll">
+                    <h4 style="color: #E62F6E;">Missed Conversion Opportunities</h4>
+                    <p>Without knowing how many people walked through the door, they couldn't calculate true conversion rates or identify improvement areas.</p>
+                </div>
+                <div class="animate-on-scroll">
+                    <h4 style="color: #E62F6E;">Holiday Planning Guesswork</h4>
+                    <p>Christmas staffing was based on last year's sales, not actual traffic patterns. They had no way to predict the pre-Christmas rush.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Insights -->
+    <section class="section">
+        <div class="container">
+            <h2>What JamBox Revealed</h2>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Evening Rush Discovery</h4>
+                <p>Peak footfall consistently occurred between <strong>6pm and 10pm</strong>, with 9-10pm being the busiest hour. This was surprising as the store had always focused staffing on lunch hours. The Times Square tourist crowd peaks in the evening.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Weekend Surge Pattern</h4>
+                <p>Weekend traffic averaged <strong>109,614 visitors daily</strong> compared to 88,889 on weekdays - a 23% increase. Saturdays and Sundays required fundamentally different staffing models.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Christmas Week Explosion</h4>
+                <p>The week of December 20-28 saw daily footfall jump to <strong>130,000-153,000</strong> - nearly 60% above the monthly average. Dec 21st hit the peak at 153,406 visitors. Christmas Day itself saw 152,185 visitors.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Weather Impact Quantified</h4>
+                <p>On December 3rd (13mm rain), footfall dropped 30% compared to similar dry days. This data now triggers automatic staffing adjustments when rain is forecast.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hourly Breakdown -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>Hourly Traffic Patterns</h2>
+            <p>Understanding when customers arrive transformed how the store operates.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin: 40px 0;">
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">6am-9am</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #777;">Low</div>
+                    <div style="font-size: 0.75rem; color: #555;">~1,600/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">9am-12pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E94B52;">Building</div>
+                    <div style="font-size: 0.75rem; color: #555;">~4,500/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">12pm-5pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E94B52;">Steady</div>
+                    <div style="font-size: 0.75rem; color: #555;">~5,000/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(230, 47, 110, 0.2) 0%, rgba(233, 75, 82, 0.15) 100%); border-radius: 8px; border: 1px solid rgba(230, 47, 110, 0.3);">
+                    <div style="font-size: 0.8rem; color: #E62F6E;">6pm-10pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E62F6E;">PEAK</div>
+                    <div style="font-size: 0.75rem; color: #E62F6E;">~6,000/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">10pm-12am</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #777;">Tapering</div>
+                    <div style="font-size: 0.75rem; color: #555;">~4,000/hr</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section">
+        <div class="container">
+            <div class="results-highlight">
+                <h3>The Results</h3>
+                <p style="margin-bottom: 30px;">After one month with JamBox data, the store made immediate operational changes:</p>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-number">18%</div>
+                        <div class="result-label">Reduction in labour costs</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">+12%</div>
+                        <div class="result-label">Conversion rate improvement</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">2hrs</div>
+                        <div class="result-label">Saved on weekly scheduling</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">Real-time</div>
+                        <div class="result-label">Traffic monitoring</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-block animate-on-scroll">
+                <p class="quote-text">We thought we knew our busy times. JamBox showed us we were scheduling for lunch when our real rush was 6-10pm. That single insight transformed our evening staffing and immediately improved customer service scores.</p>
+                <p class="quote-author">- Store Operations Manager</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What They Changed -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>Actions Taken</h2>
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Week 1</div>
+                    <h4>Shifted Evening Coverage</h4>
+                    <p>Moved two staff members from morning to evening shifts (5pm-close) based on hourly traffic data.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Week 2</div>
+                    <h4>Weekend Staffing Increase</h4>
+                    <p>Added 3 additional team members for Saturday and Sunday based on the 23% traffic uplift discovered.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Week 3</div>
+                    <h4>Christmas Week Preparation</h4>
+                    <p>Hired 5 seasonal staff specifically for Dec 20-28, informed by the footfall surge prediction.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Week 4</div>
+                    <h4>Weather-Based Scheduling</h4>
+                    <p>Integrated weather forecasts with staffing decisions - reducing coverage on forecast rainy days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section animate-on-scroll animate-scale">
+        <div class="container">
+            <h2>Ready to Understand Your Footfall?</h2>
+            <p>JamBox installs in minutes and starts delivering insights immediately. No complex setup, no ongoing fees surprises.</p>
+            <a href="contact.html" class="btn btn-primary">Get Started</a>
+            <a href="index.html#how-it-works" class="btn btn-secondary" style="margin-left: 15px;">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>Data Jam Retail</h4>
+                    <p>Real-time footfall analytics for high street businesses. Know your customers, grow your business.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#benefits">Benefits</a></li>
+                        <li><a href="index.html#use-cases">Use Cases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@data-jam.com">hello@data-jam.com</a></li>
+                        <li><a href="tel:+447827813388">+44 7827 813388</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
