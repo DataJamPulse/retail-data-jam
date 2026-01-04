@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>London Leisure Centre Data Study | Data Jam</title>
-    <meta name="description" content="One month of real JamBox footfall data from leisure centres in London. See visitor patterns, peak hours, and weekly trends.">
+    <title>Fast Food Restaurant Data Study | Data Jam</title>
+    <meta name="description" content="One month of real JamBox footfall data from a fast food restaurant. See peak hours, weekend surges, and late-night trading patterns.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -215,25 +215,25 @@
     <section class="case-study-header">
         <div class="container">
             <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
-            <h1 style="margin-top: 20px;">London Leisure Centre Data Study</h1>
-            <p class="subtitle">One month of real JamBox data from two leisure centres in the London area. Explore visitor patterns, peak hours, and weekly trends.</p>
+            <h1 style="margin-top: 20px;">Fast Food Restaurant Data Study</h1>
+            <p class="subtitle">One month of real JamBox data from a quick-service restaurant. Discover peak trading hours, weekend patterns, and late-night demand.</p>
 
             <div class="case-study-meta">
                 <div class="meta-item">
                     <span class="meta-label">Business Type</span>
-                    <span class="meta-value">Leisure Centres</span>
+                    <span class="meta-value">Fast Food / QSR</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Location</span>
-                    <span class="meta-value">London, UK</span>
+                    <span class="meta-value">UK</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Data Period</span>
                     <span class="meta-value">October 2025</span>
                 </div>
                 <div class="meta-item">
-                    <span class="meta-label">JamBox Sensors</span>
-                    <span class="meta-value">2 Locations</span>
+                    <span class="meta-label">Trading Hours</span>
+                    <span class="meta-value">11am - 3am</span>
                 </div>
             </div>
         </div>
@@ -244,20 +244,20 @@
         <div class="container">
             <div class="key-stats">
                 <div class="key-stat">
-                    <span class="key-stat-number">1.29M</span>
+                    <span class="key-stat-number">773K</span>
                     <span class="key-stat-label">Total Visitors</span>
                 </div>
                 <div class="key-stat">
-                    <span class="key-stat-number">41,556</span>
+                    <span class="key-stat-number">24,956</span>
                     <span class="key-stat-label">Daily Average</span>
                 </div>
                 <div class="key-stat">
-                    <span class="key-stat-number">54,522</span>
-                    <span class="key-stat-label">Peak Day (Oct 13)</span>
+                    <span class="key-stat-number">43,361</span>
+                    <span class="key-stat-label">Peak Day (Oct 25)</span>
                 </div>
                 <div class="key-stat">
-                    <span class="key-stat-number">+15%</span>
-                    <span class="key-stat-label">Weekday vs Weekend</span>
+                    <span class="key-stat-number">+17%</span>
+                    <span class="key-stat-label">Weekend vs Weekday</span>
                 </div>
             </div>
 
@@ -276,6 +276,7 @@
             <!-- Hourly Pattern Chart -->
             <div class="chart-container">
                 <h3>Hourly Visitor Pattern (Average)</h3>
+                <p style="color: #999; margin-bottom: 15px;">Notice the lunchtime peak at 1pm and sustained evening trade through to late night.</p>
                 <div class="chart-wrapper">
                     <canvas id="hourlyChart"></canvas>
                 </div>
@@ -289,11 +290,12 @@
                 </div>
             </div>
 
-            <!-- Location Comparison Chart -->
+            <!-- Trading Period Breakdown -->
             <div class="chart-container">
-                <h3>Hourly Pattern by Location</h3>
+                <h3>Trading Period Breakdown</h3>
+                <p style="color: #999; margin-bottom: 15px;">Comparing lunch, dinner, and late-night trading volumes.</p>
                 <div class="chart-wrapper">
-                    <canvas id="locationChart"></canvas>
+                    <canvas id="periodChart"></canvas>
                 </div>
             </div>
         </div>
@@ -306,20 +308,20 @@
                 <h2>Actionable Insights From This Data</h2>
                 <div class="insight-grid">
                     <div class="insight-card">
-                        <h3>Double Peak Pattern</h3>
-                        <p>Leisure centres show two distinct peaks: a morning rush (9am-11am) as gym-goers and swimmers arrive, then a stronger after-school/work surge (4pm-6pm). The 5pm hour sees the highest traffic of the day.</p>
+                        <h3>Lunchtime Rush</h3>
+                        <p>Peak hour is 1pm with an average of 2,466 visitors. The lunch period (11am-2pm) accounts for a significant portion of daily trade - staff and stock levels need to be ready.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Weekdays Beat Weekends</h3>
-                        <p>Unlike retail, leisure centres are busier on weekdays. Weekday average: 43,004 vs weekend average: 37,395. Tuesday is the busiest day, while Sunday sees the lowest footfall.</p>
+                        <h3>Dinner Beats Lunch</h3>
+                        <p>Despite the 1pm peak, total dinner traffic (5pm-9pm) is 24% higher than lunch (11am-2pm). The evening crowd is steadier and more sustained.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Sunday Lull</h3>
-                        <p>Sundays average just 15,384 visitors - 36% below the weekly average. This pattern held throughout October, with one Sunday (19th) dropping to just 13,623 visitors combined.</p>
+                        <h3>Saturday Surge</h3>
+                        <p>Saturday averages 32,779 visitors - 37% higher than the quietest day (Monday at 21,913). Weekend staffing should reflect this significant uplift.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Consistent Patterns</h3>
-                        <p>Week-over-week traffic remained remarkably consistent, ranging from 36,583 to 44,847 daily average. This predictability makes staffing and class scheduling easier to optimise.</p>
+                        <h3>Late Night Trade</h3>
+                        <p>Traffic continues past midnight with 967 average visitors at 12am and 476 at 1am. Late-night trading is viable and consistent throughout the month.</p>
                     </div>
                 </div>
             </div>
@@ -328,27 +330,27 @@
                 <h2>What This Data Enables</h2>
                 <div class="insight-grid">
                     <div class="insight-card">
-                        <h3>Staff Scheduling</h3>
-                        <p>With clear morning and evening peaks, leisure centres can schedule reception, lifeguards, and fitness instructors to match actual demand. Reduce staffing during the 1pm-3pm lull.</p>
+                        <h3>Shift Planning</h3>
+                        <p>With clear peaks at lunch (1pm) and dinner (5-6pm), schedule your strongest teams for these periods. Lighter staffing works for the 2pm-4pm lull.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Class Timetabling</h3>
-                        <p>Schedule popular classes during peak hours to maximise attendance, or use quiet periods (early afternoon, Sundays) to test new class formats with lower risk.</p>
+                        <h3>Stock Management</h3>
+                        <p>Prep more product for Saturday (37% above Monday levels) and ensure late-night stock holds for the post-midnight crowd.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Capacity Management</h3>
-                        <p>Knowing that 5pm averages 2,260 visitors per hour helps plan pool lane allocations, gym floor capacity, and changing room availability during rush periods.</p>
+                        <h3>Promotional Timing</h3>
+                        <p>The 2pm-4pm quiet period is ideal for value deals or combo promotions. Drive traffic when the kitchen has capacity.</p>
                     </div>
                     <div class="insight-card">
-                        <h3>Sunday Promotions</h3>
-                        <p>With Sunday traffic 36% below average, consider family swim sessions, open gym offers, or reduced membership trial days to boost weekend utilisation.</p>
+                        <h3>Extended Hours ROI</h3>
+                        <p>Late-night trading (12am-3am) brings ~1,600 visitors per night. This data helps evaluate whether extended hours justify staffing costs.</p>
                     </div>
                 </div>
             </div>
 
             <div class="data-note">
                 <h4>About This Data</h4>
-                <p>This study uses real, anonymised footfall data collected by JamBox sensors at two leisure centres in the London area during October 2025. JamBox counts visitors without cameras or personal data - just accurate, privacy-first footfall analytics.</p>
+                <p>This study uses real, anonymised footfall data collected by a JamBox sensor at a quick-service restaurant during October 2025. JamBox counts visitors without cameras or personal data - just accurate, privacy-first footfall analytics.</p>
             </div>
 
             <!-- Other Studies -->
@@ -357,13 +359,13 @@
                 <div class="study-links">
                     <a href="case-study-nyc-retail.html" class="study-link">NYC Retail Store</a>
                     <a href="case-study-uk-mall.html" class="study-link">UK Shopping Mall</a>
-                    <a href="case-study-fast-food.html" class="study-link">Fast Food Restaurant</a>
+                    <a href="case-study-leisure-center.html" class="study-link">London Leisure Centre</a>
                 </div>
             </div>
 
             <!-- CTA -->
             <div class="cta-section">
-                <h2>Want This Data for Your Leisure Centre?</h2>
+                <h2>Want This Data for Your Restaurant?</h2>
                 <p>JamBox gives you the same detailed footfall insights, starting from just &pound;49/month. No contracts, no cameras, no hassle.</p>
                 <a href="contact.html" class="btn btn-primary btn-large">Get Started</a>
             </div>
@@ -398,7 +400,7 @@
 
         // Daily footfall data
         const dailyLabels = ["01-Oct", "02-Oct", "03-Oct", "04-Oct", "05-Oct", "06-Oct", "07-Oct", "08-Oct", "09-Oct", "10-Oct", "11-Oct", "12-Oct", "13-Oct", "14-Oct", "15-Oct", "16-Oct", "17-Oct", "18-Oct", "19-Oct", "20-Oct", "21-Oct", "22-Oct", "23-Oct", "24-Oct", "25-Oct", "26-Oct", "27-Oct", "28-Oct", "29-Oct", "30-Oct", "31-Oct"];
-        const dailyValues = [38673, 37520, 41494, 48900, 34681, 49614, 40619, 44277, 42827, 43745, 48474, 30923, 54522, 49159, 48636, 40989, 46238, 37742, 13623, 19523, 49331, 42794, 38680, 35486, 40967, 43848, 51617, 54188, 47788, 36462, 34906];
+        const dailyValues = [22180, 22912, 19099, 28186, 35490, 22020, 21755, 22370, 23002, 26141, 31420, 20967, 23096, 23781, 22450, 23039, 24452, 28150, 18845, 21169, 39265, 23125, 20519, 21199, 43361, 16866, 21366, 21362, 36646, 22642, 26766];
 
         let dailyChart = new Chart(document.getElementById('dailyChart'), {
             type: 'bar',
@@ -436,9 +438,9 @@
             dailyChart.update();
         }
 
-        // Hourly pattern chart
-        const hourlyLabels = ["5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm"];
-        const hourlyValues = [60, 270, 497, 867, 1566, 1998, 2006, 1601, 1214, 995, 1147, 2153, 2259, 1783, 1020, 654, 450, 157];
+        // Hourly pattern chart - showing active trading hours
+        const hourlyLabels = ["11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am", "1am", "2am"];
+        const hourlyValues = [786, 2019, 2466, 2129, 1928, 2090, 2267, 2059, 1897, 1611, 1322, 1438, 1348, 967, 475, 138];
 
         new Chart(document.getElementById('hourlyChart'), {
             type: 'line',
@@ -473,7 +475,7 @@
 
         // Day of week chart
         const dowLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-        const dowValues = [21909, 24162, 22216, 19647, 20186, 22010, 15384];
+        const dowValues = [21912, 26540, 25354, 22422, 23531, 32779, 23042];
 
         new Chart(document.getElementById('dowChart'), {
             type: 'bar',
@@ -482,7 +484,7 @@
                 datasets: [{
                     label: 'Avg Daily Visitors',
                     data: dowValues,
-                    backgroundColor: dowLabels.map((_, i) => i === 1 ? 'rgba(230, 47, 110, 1)' : 'rgba(230, 47, 110, 0.5)'),
+                    backgroundColor: dowLabels.map((_, i) => i === 5 ? 'rgba(230, 47, 110, 1)' : 'rgba(230, 47, 110, 0.5)'),
                     borderColor: 'rgba(230, 47, 110, 1)',
                     borderWidth: 1
                 }]
@@ -504,31 +506,20 @@
             }
         });
 
-        // Location comparison chart
-        const locationHours = ["5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm"];
-        const harpendenData = [103, 442, 828, 1353, 2286, 2877, 2765, 2304, 1668, 1402, 1677, 2899, 2995, 2226, 1447, 1047, 768, 262];
-        const barnetData = [18, 99, 167, 382, 847, 1119, 1248, 899, 760, 590, 619, 1408, 1524, 1340, 595, 262, 133, 54];
-
-        new Chart(document.getElementById('locationChart'), {
-            type: 'line',
+        // Trading period breakdown
+        new Chart(document.getElementById('periodChart'), {
+            type: 'doughnut',
             data: {
-                labels: locationHours,
+                labels: ['Lunch (11am-2pm)', 'Afternoon (3pm-4pm)', 'Dinner (5pm-9pm)', 'Late Night (10pm-2am)'],
                 datasets: [{
-                    label: 'Harpenden Leisure',
-                    data: harpendenData,
-                    borderColor: 'rgba(230, 47, 110, 1)',
-                    backgroundColor: 'rgba(230, 47, 110, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
-                }, {
-                    label: 'New Barnet',
-                    data: barnetData,
-                    borderColor: 'rgba(233, 75, 82, 1)',
-                    backgroundColor: 'rgba(233, 75, 82, 0.1)',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
+                    data: [7400, 4018, 9156, 4366],
+                    backgroundColor: [
+                        'rgba(230, 47, 110, 1)',
+                        'rgba(230, 47, 110, 0.7)',
+                        'rgba(233, 75, 82, 1)',
+                        'rgba(233, 75, 82, 0.6)'
+                    ],
+                    borderWidth: 0
                 }]
             },
             options: {
@@ -536,15 +527,10 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: value => value.toLocaleString()
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
                         }
                     }
                 }
