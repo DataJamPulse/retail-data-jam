@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Leisure Centre Data Study | Data Jam</title>
+    <meta name="description" content="One month of real JamBox footfall data from leisure centres in London. See visitor patterns, peak hours, and weekly trends.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        .case-study-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, rgba(230, 47, 110, 0.1) 0%, transparent 100%);
+        }
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .case-study-header .subtitle {
+            font-size: 1.2rem;
+            color: #999;
+            max-width: 600px;
+        }
+        .case-study-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .key-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .key-stat {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .key-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        .key-stat-label {
+            color: #999;
+            margin-top: 10px;
+        }
+        .insight-section {
+            margin: 60px 0;
+        }
+        .insight-section h2 {
+            margin-bottom: 30px;
+        }
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .insight-card {
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .insight-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .insight-card p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+        .data-note {
+            margin-top: 60px;
+            padding: 25px;
+            background: rgba(230, 47, 110, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 10px 10px 0;
+        }
+        .data-note h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .data-note p {
+            color: #bbb;
+            margin: 0;
+        }
+        .chart-container {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .chart-container h3 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .chart-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .chart-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .chart-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .cta-section {
+            margin-top: 80px;
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.15) 0%, rgba(233, 75, 82, 0.1) 100%);
+            border-radius: 20px;
+        }
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: #999;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        .other-studies {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            text-align: center;
+        }
+        .other-studies h3 {
+            margin-bottom: 20px;
+        }
+        .study-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .study-link {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .study-link:hover {
+            background: rgba(230, 47, 110, 0.2);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.png" alt="Data Jam" style="height: 40px;">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#benefits">Benefits</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="contact.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Case Study Header -->
+    <section class="case-study-header">
+        <div class="container">
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
+            <h1 style="margin-top: 20px;">London Leisure Centre Data Study</h1>
+            <p class="subtitle">One month of real JamBox data from two leisure centres in the London area. Explore visitor patterns, peak hours, and weekly trends.</p>
+
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Business Type</span>
+                    <span class="meta-value">Leisure Centres</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">London, UK</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Data Period</span>
+                    <span class="meta-value">October 2025</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">JamBox Sensors</span>
+                    <span class="meta-value">2 Locations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Stats -->
+    <section class="section">
+        <div class="container">
+            <div class="key-stats">
+                <div class="key-stat">
+                    <span class="key-stat-number">1.29M</span>
+                    <span class="key-stat-label">Total Visitors</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">41,556</span>
+                    <span class="key-stat-label">Daily Average</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">54,522</span>
+                    <span class="key-stat-label">Peak Day (Oct 13)</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">+15%</span>
+                    <span class="key-stat-label">Weekday vs Weekend</span>
+                </div>
+            </div>
+
+            <!-- Daily Footfall Chart -->
+            <div class="chart-container">
+                <h3>Daily Visitor Count</h3>
+                <div class="chart-controls">
+                    <button class="chart-btn active" onclick="setDailyChartType('bar')">Bar</button>
+                    <button class="chart-btn" onclick="setDailyChartType('line')">Line</button>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Hourly Pattern Chart -->
+            <div class="chart-container">
+                <h3>Hourly Visitor Pattern (Average)</h3>
+                <div class="chart-wrapper">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Day of Week Chart -->
+            <div class="chart-container">
+                <h3>Average Visitors by Day of Week</h3>
+                <div class="chart-wrapper">
+                    <canvas id="dowChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Location Comparison Chart -->
+            <div class="chart-container">
+                <h3>Hourly Pattern by Location</h3>
+                <div class="chart-wrapper">
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="insight-section">
+                <h2>Actionable Insights From This Data</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h3>Double Peak Pattern</h3>
+                        <p>Leisure centres show two distinct peaks: a morning rush (9am-11am) as gym-goers and swimmers arrive, then a stronger after-school/work surge (4pm-6pm). The 5pm hour sees the highest traffic of the day.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Weekdays Beat Weekends</h3>
+                        <p>Unlike retail, leisure centres are busier on weekdays. Weekday average: 43,004 vs weekend average: 37,395. Tuesday is the busiest day, while Sunday sees the lowest footfall.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Sunday Lull</h3>
+                        <p>Sundays average just 15,384 visitors - 36% below the weekly average. This pattern held throughout October, with one Sunday (19th) dropping to just 13,623 visitors combined.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Consistent Patterns</h3>
+                        <p>Week-over-week traffic remained remarkably consistent, ranging from 36,583 to 44,847 daily average. This predictability makes staffing and class scheduling easier to optimise.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-section">
+                <h2>What This Data Enables</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h3>Staff Scheduling</h3>
+                        <p>With clear morning and evening peaks, leisure centres can schedule reception, lifeguards, and fitness instructors to match actual demand. Reduce staffing during the 1pm-3pm lull.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Class Timetabling</h3>
+                        <p>Schedule popular classes during peak hours to maximise attendance, or use quiet periods (early afternoon, Sundays) to test new class formats with lower risk.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Capacity Management</h3>
+                        <p>Knowing that 5pm averages 2,260 visitors per hour helps plan pool lane allocations, gym floor capacity, and changing room availability during rush periods.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Sunday Promotions</h3>
+                        <p>With Sunday traffic 36% below average, consider family swim sessions, open gym offers, or reduced membership trial days to boost weekend utilisation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-note">
+                <h4>About This Data</h4>
+                <p>This study uses real, anonymised footfall data collected by JamBox sensors at two leisure centres in the London area during October 2025. JamBox counts visitors without cameras or personal data - just accurate, privacy-first footfall analytics.</p>
+            </div>
+
+            <!-- Other Studies -->
+            <div class="other-studies">
+                <h3>Explore More Data Studies</h3>
+                <div class="study-links">
+                    <a href="case-study-nyc-retail.html" class="study-link">NYC Retail Store</a>
+                    <a href="case-study-uk-mall.html" class="study-link">UK Shopping Mall</a>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <h2>Want This Data for Your Leisure Centre?</h2>
+                <p>JamBox gives you the same detailed footfall insights, starting from just &pound;49/month. No contracts, no cameras, no hassle.</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="Data Jam" style="height: 35px; margin-bottom: 15px;">
+                    <p>Simple footfall analytics for high street businesses.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#benefits">Benefits</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js default styling
+        Chart.defaults.color = '#999';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+
+        // Daily footfall data
+        const dailyLabels = ["01-Oct", "02-Oct", "03-Oct", "04-Oct", "05-Oct", "06-Oct", "07-Oct", "08-Oct", "09-Oct", "10-Oct", "11-Oct", "12-Oct", "13-Oct", "14-Oct", "15-Oct", "16-Oct", "17-Oct", "18-Oct", "19-Oct", "20-Oct", "21-Oct", "22-Oct", "23-Oct", "24-Oct", "25-Oct", "26-Oct", "27-Oct", "28-Oct", "29-Oct", "30-Oct", "31-Oct"];
+        const dailyValues = [38673, 37520, 41494, 48900, 34681, 49614, 40619, 44277, 42827, 43745, 48474, 30923, 54522, 49159, 48636, 40989, 46238, 37742, 13623, 19523, 49331, 42794, 38680, 35486, 40967, 43848, 51617, 54188, 47788, 36462, 34906];
+
+        let dailyChart = new Chart(document.getElementById('dailyChart'), {
+            type: 'bar',
+            data: {
+                labels: dailyLabels,
+                datasets: [{
+                    label: 'Daily Visitors',
+                    data: dailyValues,
+                    backgroundColor: 'rgba(230, 47, 110, 0.7)',
+                    borderColor: 'rgba(230, 47, 110, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString()
+                        }
+                    }
+                }
+            }
+        });
+
+        function setDailyChartType(type) {
+            document.querySelectorAll('.chart-controls .chart-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            dailyChart.config.type = type;
+            dailyChart.update();
+        }
+
+        // Hourly pattern chart
+        const hourlyLabels = ["5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm"];
+        const hourlyValues = [60, 270, 497, 867, 1566, 1998, 2006, 1601, 1214, 995, 1147, 2153, 2259, 1783, 1020, 654, 450, 157];
+
+        new Chart(document.getElementById('hourlyChart'), {
+            type: 'line',
+            data: {
+                labels: hourlyLabels,
+                datasets: [{
+                    label: 'Avg Visitors',
+                    data: hourlyValues,
+                    backgroundColor: 'rgba(230, 47, 110, 0.2)',
+                    borderColor: 'rgba(230, 47, 110, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString()
+                        }
+                    }
+                }
+            }
+        });
+
+        // Day of week chart
+        const dowLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        const dowValues = [21909, 24162, 22216, 19647, 20186, 22010, 15384];
+
+        new Chart(document.getElementById('dowChart'), {
+            type: 'bar',
+            data: {
+                labels: dowLabels,
+                datasets: [{
+                    label: 'Avg Daily Visitors',
+                    data: dowValues,
+                    backgroundColor: dowLabels.map((_, i) => i === 1 ? 'rgba(230, 47, 110, 1)' : 'rgba(230, 47, 110, 0.5)'),
+                    borderColor: 'rgba(230, 47, 110, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString()
+                        }
+                    }
+                }
+            }
+        });
+
+        // Location comparison chart
+        const locationHours = ["5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm"];
+        const harpendenData = [103, 442, 828, 1353, 2286, 2877, 2765, 2304, 1668, 1402, 1677, 2899, 2995, 2226, 1447, 1047, 768, 262];
+        const barnetData = [18, 99, 167, 382, 847, 1119, 1248, 899, 760, 590, 619, 1408, 1524, 1340, 595, 262, 133, 54];
+
+        new Chart(document.getElementById('locationChart'), {
+            type: 'line',
+            data: {
+                labels: locationHours,
+                datasets: [{
+                    label: 'Harpenden Leisure',
+                    data: harpendenData,
+                    borderColor: 'rgba(230, 47, 110, 1)',
+                    backgroundColor: 'rgba(230, 47, 110, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }, {
+                    label: 'New Barnet',
+                    data: barnetData,
+                    borderColor: 'rgba(233, 75, 82, 1)',
+                    backgroundColor: 'rgba(233, 75, 82, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString()
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
