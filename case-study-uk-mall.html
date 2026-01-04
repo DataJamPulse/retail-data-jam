@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Data Study: UK Shopping Mall Footfall | Data Jam Retail</title>
+    <meta name="description" content="Real JamBox footfall data from a UK shopping mall. See hourly patterns, weekend vs weekday traffic, Christmas rush, and Boxing Day insights.">
+    <meta name="keywords" content="shopping mall footfall, UK retail analytics, Christmas shopping data, mall traffic analysis">
+
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Data Jam">
+    <link rel="canonical" href="https://retail.data-jam.com/case-study-uk-mall">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Data Study: UK Shopping Mall Footfall | Data Jam Retail">
+    <meta property="og:description" content="Real JamBox data from a UK shopping mall. Christmas rush patterns, peak hours, and weekend insights.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://retail.data-jam.com/case-study-uk-mall">
+
+    <style>
+        .case-study-hero {
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.2) 0%, rgba(233, 75, 82, 0.15) 100%);
+            padding: 100px 0 60px;
+        }
+        .case-study-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .meta-item {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 5px;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.1) 0%, rgba(233, 75, 82, 0.05) 100%);
+            border: 1px solid rgba(230, 47, 110, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #E62F6E 0%, #E94B52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .insight-block {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid #E62F6E;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .insight-block h4 {
+            color: #E62F6E;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .chart-container {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .chart-container h3 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .chart-container p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .chart-tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .chart-tab:hover {
+            background: rgba(230, 47, 110, 0.1);
+            border-color: rgba(230, 47, 110, 0.3);
+            color: #fff;
+        }
+        .chart-tab.active {
+            background: linear-gradient(135deg, #E62F6E 0%, #E94B52 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #E62F6E, #E94B52);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: #E62F6E;
+            border-radius: 50%;
+        }
+        .timeline-date {
+            color: #E62F6E;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .results-highlight {
+            background: linear-gradient(135deg, #E62F6E 0%, #E94B52 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            color: #fff;
+        }
+        .results-highlight h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .result-item {
+            text-align: center;
+        }
+        .result-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 500px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .chart-wrapper {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-gradient.png" alt="Data Jam Retail" class="logo-img">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#benefits">Benefits</a></li>
+                <li><a href="index.html#use-cases">Use Cases</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="case-study-hero">
+        <div class="container">
+            <p class="hero-subtitle" style="color: #E62F6E; margin-bottom: 10px;">DATA STUDY</p>
+            <h1>What One Month of Footfall Data Reveals About a UK Shopping Mall</h1>
+            <p class="lead" style="max-width: 700px;">Real JamBox data from a busy UK shopping centre. See how the Christmas rush builds, when shoppers arrive, and what Boxing Day really looks like.</p>
+
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Venue Type</div>
+                    <div class="meta-value">Shopping Mall</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">United Kingdom</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Period</div>
+                    <div class="meta-value">December 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Sensors</div>
+                    <div class="meta-value">Multiple Entrances</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Stats -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center">The Numbers</h2>
+            <p class="text-center" style="color: #999; max-width: 600px; margin: 0 auto 40px;">One month of footfall data from multiple JamBox sensors across the mall.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">6M+</div>
+                    <div class="stat-label">Total visitors tracked in December</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">193,708</div>
+                    <div class="stat-label">Average daily footfall</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">276,173</div>
+                    <div class="stat-label">Peak day (Dec 20 - Super Saturday)</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">+28%</div>
+                    <div class="stat-label">Saturday vs weekday average</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Charts -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2 class="animate-on-scroll">Explore the Data</h2>
+            <p class="section-intro animate-on-scroll">Hover over the charts to see detailed numbers. Click legend items to show/hide data.</p>
+
+            <!-- Daily Footfall Chart -->
+            <div class="chart-container animate-on-scroll">
+                <h3>Daily Footfall - December 2025</h3>
+                <p>Watch how traffic builds to the Christmas peak, drops on the 25th, then surges again for Boxing Day sales.</p>
+                <div class="chart-tabs">
+                    <button class="chart-tab active" onclick="toggleDailyChart('bar')">Bar Chart</button>
+                    <button class="chart-tab" onclick="toggleDailyChart('line')">Line Chart</button>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- Hourly Pattern Chart -->
+                <div class="chart-container animate-on-scroll">
+                    <h3>Hourly Traffic Pattern</h3>
+                    <p>Average footfall by hour. Peak is lunchtime: 1pm-3pm.</p>
+                    <div class="chart-wrapper">
+                        <canvas id="hourlyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Day of Week Chart -->
+                <div class="chart-container animate-on-scroll">
+                    <h3>Day of Week Comparison</h3>
+                    <p>Saturday dominates with 28% more traffic than weekdays.</p>
+                    <div class="chart-wrapper">
+                        <canvas id="dayOfWeekChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Christmas Week Chart -->
+            <div class="chart-container animate-on-scroll">
+                <h3>The Christmas Week Story</h3>
+                <p>Dec 20-26: The most dramatic week of the year.</p>
+                <div class="chart-wrapper">
+                    <canvas id="christmasChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Insights -->
+    <section class="section">
+        <div class="container">
+            <h2>What JamBox Revealed</h2>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Super Saturday Surge</h4>
+                <p>December 20th (the last Saturday before Christmas) was the busiest day with <strong>276,173 visitors</strong> - 43% higher than the monthly average. This is when last-minute shoppers flood in.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>The Lunchtime Peak</h4>
+                <p>Unlike high street shops, mall traffic peaks at <strong>1pm-3pm</strong>, not evenings. Shoppers combine lunch with shopping. Staffing should be heaviest during this window.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Christmas Day Drop</h4>
+                <p>December 25th saw just <strong>11,132 visitors</strong> - 94% below average. The mall was essentially closed, with only minimal pass-through traffic.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Boxing Day Bounce</h4>
+                <p>December 26th bounced back to <strong>186,612 visitors</strong> as sale hunters arrived. Still 4% below average - perhaps shoppers were recovering from Christmas.</p>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>Saturday is King</h4>
+                <p>Saturday averaged <strong>242,075 visitors</strong> - 28% higher than weekdays. Mall operators should plan their biggest events, promotions, and staff levels for Saturdays.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hourly Breakdown -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>Hourly Traffic Patterns</h2>
+            <p>Shopping mall patterns differ from high street - peak is midday, not evening.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin: 40px 0;">
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">8am-10am</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #777;">Opening</div>
+                    <div style="font-size: 0.75rem; color: #555;">~7K/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">10am-12pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E94B52;">Building</div>
+                    <div style="font-size: 0.75rem; color: #555;">~14K/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(230, 47, 110, 0.2) 0%, rgba(233, 75, 82, 0.15) 100%); border-radius: 8px; border: 1px solid rgba(230, 47, 110, 0.3);">
+                    <div style="font-size: 0.8rem; color: #E62F6E;">12pm-4pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E62F6E;">PEAK</div>
+                    <div style="font-size: 0.75rem; color: #E62F6E;">~22K/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">4pm-6pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #E94B52;">Steady</div>
+                    <div style="font-size: 0.75rem; color: #555;">~15K/hr</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <div style="font-size: 0.8rem; color: #666;">6pm-9pm</div>
+                    <div style="font-size: 1.3rem; font-weight: 600; color: #777;">Winding Down</div>
+                    <div style="font-size: 0.75rem; color: #555;">~5K/hr</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What This Data Enables -->
+    <section class="section">
+        <div class="container">
+            <div class="results-highlight">
+                <h3>What This Data Enables</h3>
+                <p style="margin-bottom: 30px;">For mall operators and tenants, this footfall data enables:</p>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-number">Staffing</div>
+                        <div class="result-label">Peak coverage 12pm-4pm</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">Events</div>
+                        <div class="result-label">Schedule for Saturdays</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">Planning</div>
+                        <div class="result-label">Predict Christmas surge</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-number">Benchmarks</div>
+                        <div class="result-label">Measure year-on-year</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-block animate-on-scroll">
+                <h4>The Key Question This Data Answers</h4>
+                <p>Mall operators need to know: when are people here? This data shows the lunchtime peak, the Saturday surge, and the Christmas buildup. <strong>Without measurement, you're guessing. With JamBox, you know.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actionable Insights -->
+    <section class="section" style="background: rgba(255,255,255,0.02);">
+        <div class="container">
+            <h2>Actionable Insights From This Data</h2>
+            <p class="lead">Here's what a mall operator or tenant could do with these insights:</p>
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Insight 1</div>
+                    <h4>Focus Staff on Lunchtime</h4>
+                    <p>The 12pm-4pm peak is when shoppers are most likely to need help. Shift staff breaks to before noon or after 4pm.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Insight 2</div>
+                    <h4>Saturday Event Strategy</h4>
+                    <p>With Saturday averaging 28% more footfall, schedule demos, promotions, and events for Saturdays to maximize reach.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Insight 3</div>
+                    <h4>Pre-Christmas Staffing</h4>
+                    <p>The week before Christmas (Dec 20-24) saw 40%+ increases. Plan for temporary staff and extended hours during this period.</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-date">Insight 4</div>
+                    <h4>Boxing Day Preparation</h4>
+                    <p>Boxing Day brings a surge but not quite to pre-Christmas levels. Plan sale stock and staffing accordingly - busy but not peak.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta-section animate-on-scroll animate-scale">
+        <div class="container">
+            <h2>Ready to Understand Your Footfall?</h2>
+            <p>JamBox installs in minutes and starts delivering insights immediately. Perfect for malls, shopping centres, and multi-unit retail.</p>
+            <a href="contact.html" class="btn btn-primary">Get Started</a>
+            <a href="case-study-nyc-retail.html" class="btn btn-secondary" style="margin-left: 15px;">View NYC Study</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>Data Jam Retail</h4>
+                    <p>Real-time footfall analytics for high street businesses. Know your customers, grow your business.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#benefits">Benefits</a></li>
+                        <li><a href="index.html#use-cases">Use Cases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@data-jam.com">hello@data-jam.com</a></li>
+                        <li><a href="tel:+447827813388">+44 7827 813388</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+    <!-- Chart Initialization -->
+    <script>
+    // Real data from JamBox - UK Shopping Mall December 2025
+    const dailyData = {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+        values: [164429, 185161, 177796, 173460, 199050, 238875, 173844, 168084, 169285, 174576, 180524, 191597, 240180, 174132, 179559, 186513, 202414, 191407, 232796, 276173, 201279, 251837, 263233, 243370, 11132, 186612, 213072, 146364, 196319, 214804, 197063],
+        days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed']
+    };
+
+    const hourlyData = {
+        labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm'],
+        values: [3307, 6370, 11306, 16501, 19452, 22630, 23374, 22403, 21061, 17759, 12223, 7932, 5025, 2665, 1700]
+    };
+
+    const dayOfWeekData = {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        values: [192046, 203799, 199044, 139131, 202514, 242075, 173905]
+    };
+
+    // Chart colors
+    const pinkGradient = (ctx) => {
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(230, 47, 110, 0.8)');
+        gradient.addColorStop(1, 'rgba(233, 75, 82, 0.4)');
+        return gradient;
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+            intersect: false,
+            mode: 'index'
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(10, 12, 17, 0.95)',
+                titleColor: '#fff',
+                bodyColor: '#ccc',
+                borderColor: 'rgba(230, 47, 110, 0.5)',
+                borderWidth: 1,
+                padding: 12,
+                displayColors: false,
+                callbacks: {
+                    label: function(context) {
+                        return context.parsed.y.toLocaleString() + ' visitors';
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: 'rgba(255,255,255,0.05)'
+                },
+                ticks: {
+                    color: '#888'
+                }
+            },
+            y: {
+                grid: {
+                    color: 'rgba(255,255,255,0.05)'
+                },
+                ticks: {
+                    color: '#888',
+                    callback: function(value) {
+                        return (value / 1000) + 'K';
+                    }
+                }
+            }
+        }
+    };
+
+    // Daily Chart
+    let dailyChart;
+    const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+
+    function createDailyChart(type) {
+        if (dailyChart) dailyChart.destroy();
+
+        dailyChart = new Chart(dailyCtx, {
+            type: type,
+            data: {
+                labels: dailyData.labels.map(d => 'Dec ' + d),
+                datasets: [{
+                    label: 'Daily Footfall',
+                    data: dailyData.values,
+                    backgroundColor: function(context) {
+                        const idx = context.dataIndex;
+                        // Highlight Christmas week
+                        if (idx >= 19 && idx <= 25) {
+                            return idx === 24 ? 'rgba(100, 100, 100, 0.5)' : 'rgba(230, 47, 110, 1)';
+                        }
+                        return type === 'bar' ? pinkGradient(dailyCtx) : 'rgba(230, 47, 110, 0.1)';
+                    },
+                    borderColor: '#E62F6E',
+                    borderWidth: 2,
+                    fill: type === 'line',
+                    tension: 0.4,
+                    pointBackgroundColor: '#E62F6E',
+                    pointBorderColor: '#fff',
+                    pointHoverRadius: 8,
+                    pointRadius: type === 'line' ? 3 : 0
+                }]
+            },
+            options: {
+                ...chartOptions,
+                plugins: {
+                    ...chartOptions.plugins,
+                    tooltip: {
+                        ...chartOptions.plugins.tooltip,
+                        callbacks: {
+                            title: function(context) {
+                                const idx = context[0].dataIndex;
+                                const day = dailyData.days[idx];
+                                let title = 'December ' + dailyData.labels[idx] + ' (' + day + ')';
+                                if (idx === 24) title += ' - Christmas Day';
+                                if (idx === 25) title += ' - Boxing Day';
+                                if (idx === 19) title += ' - Super Saturday';
+                                return title;
+                            },
+                            label: function(context) {
+                                return context.parsed.y.toLocaleString() + ' visitors';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function toggleDailyChart(type) {
+        document.querySelectorAll('.chart-tabs .chart-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        createDailyChart(type);
+    }
+
+    createDailyChart('bar');
+
+    // Hourly Chart
+    const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
+    new Chart(hourlyCtx, {
+        type: 'line',
+        data: {
+            labels: hourlyData.labels,
+            datasets: [{
+                label: 'Average Hourly Footfall',
+                data: hourlyData.values,
+                backgroundColor: 'rgba(230, 47, 110, 0.1)',
+                borderColor: '#E62F6E',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: function(context) {
+                    const value = context.dataset.data[context.dataIndex];
+                    return value > 20000 ? '#E62F6E' : 'rgba(230, 47, 110, 0.5)';
+                },
+                pointBorderColor: '#fff',
+                pointRadius: function(context) {
+                    const value = context.dataset.data[context.dataIndex];
+                    return value > 20000 ? 6 : 3;
+                },
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            ...chartOptions,
+            plugins: {
+                ...chartOptions.plugins,
+                tooltip: {
+                    ...chartOptions.plugins.tooltip,
+                    callbacks: {
+                        title: function(context) {
+                            const hour = context[0].dataIndex;
+                            const isPeak = hourlyData.values[hour] > 20000;
+                            return hourlyData.labels[hour] + (isPeak ? ' (PEAK)' : '');
+                        },
+                        label: function(context) {
+                            return 'Average: ' + context.parsed.y.toLocaleString() + ' visitors/hour';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Day of Week Chart
+    const dowCtx = document.getElementById('dayOfWeekChart').getContext('2d');
+    new Chart(dowCtx, {
+        type: 'bar',
+        data: {
+            labels: dayOfWeekData.labels,
+            datasets: [{
+                label: 'Average Daily Footfall',
+                data: dayOfWeekData.values,
+                backgroundColor: dayOfWeekData.labels.map((day, i) => {
+                    if (i === 5) return '#E62F6E'; // Saturday - brightest
+                    if (i === 6) return 'rgba(230, 47, 110, 0.7)'; // Sunday
+                    if (i === 3) return 'rgba(100, 100, 100, 0.5)'; // Thursday (Christmas skews low)
+                    return 'rgba(230, 47, 110, 0.4)';
+                }),
+                borderColor: dayOfWeekData.labels.map((day, i) =>
+                    (i === 5 || i === 6) ? '#E62F6E' : 'rgba(230, 47, 110, 0.6)'
+                ),
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            ...chartOptions,
+            plugins: {
+                ...chartOptions.plugins,
+                tooltip: {
+                    ...chartOptions.plugins.tooltip,
+                    callbacks: {
+                        title: function(context) {
+                            const day = context[0].label;
+                            const isWeekend = day === 'Saturday' || day === 'Sunday';
+                            let title = day + (isWeekend ? ' (Weekend)' : ' (Weekday)');
+                            if (day === 'Thursday') title += ' - Note: Skewed by Christmas Day';
+                            return title;
+                        },
+                        label: function(context) {
+                            return 'Average: ' + context.parsed.y.toLocaleString() + ' visitors';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Christmas Week Chart
+    const christmasCtx = document.getElementById('christmasChart').getContext('2d');
+    new Chart(christmasCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Dec 20 (Sat)', 'Dec 21 (Sun)', 'Dec 22 (Mon)', 'Dec 23 (Tue)', 'Dec 24 (Wed)', 'Dec 25 (Thu)', 'Dec 26 (Fri)'],
+            datasets: [{
+                label: 'Christmas Week Footfall',
+                data: [276173, 201279, 251837, 263233, 243370, 11132, 186612],
+                backgroundColor: [
+                    '#E62F6E', // Super Saturday
+                    'rgba(230, 47, 110, 0.7)',
+                    'rgba(230, 47, 110, 0.8)',
+                    'rgba(230, 47, 110, 0.85)',
+                    'rgba(230, 47, 110, 0.75)',
+                    'rgba(100, 100, 100, 0.5)', // Christmas Day
+                    'rgba(230, 47, 110, 0.6)' // Boxing Day
+                ],
+                borderColor: '#E62F6E',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            ...chartOptions,
+            plugins: {
+                ...chartOptions.plugins,
+                tooltip: {
+                    ...chartOptions.plugins.tooltip,
+                    callbacks: {
+                        title: function(context) {
+                            const labels = ['Super Saturday - Busiest Day!', 'Sunday', 'Monday', 'Tuesday', 'Christmas Eve', 'Christmas Day - Mall Closed', 'Boxing Day Sales'];
+                            return labels[context[0].dataIndex];
+                        },
+                        label: function(context) {
+                            const avgComparison = ((context.parsed.y / 193708 - 1) * 100).toFixed(0);
+                            const comparison = avgComparison > 0 ? '+' + avgComparison + '% vs avg' : avgComparison + '% vs avg';
+                            return context.parsed.y.toLocaleString() + ' visitors (' + comparison + ')';
+                        }
+                    }
+                }
+            }
+        }
+    });
+    </script>
+</body>
+</html>
