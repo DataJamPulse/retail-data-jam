@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Report: Fitness & Leisure Centre | Data Jam</title>
+    <meta name="description" content="How a 64-site leisure operator used JamBox data to cut overtime by 15% and boost lunchtime class attendance by 28%.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        .pulse-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, rgba(230, 47, 110, 0.15) 0%, transparent 100%);
+        }
+        .pulse-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .pulse-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .pulse-header .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            max-width: 600px;
+            font-weight: 500;
+        }
+        .pulse-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .result-card {
+            text-align: center;
+            padding: 35px 25px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.15) 0%, rgba(233, 75, 82, 0.08) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(230, 47, 110, 0.3);
+        }
+        .result-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        .result-label {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .key-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .key-stat {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .key-stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            display: block;
+        }
+        .key-stat-label {
+            color: #999;
+            margin-top: 10px;
+        }
+        .narrative-section {
+            margin: 60px 0;
+        }
+        .narrative-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .narrative-section p {
+            color: #bbb;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .insight-card {
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .insight-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .insight-card p {
+            color: #bbb;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .quote-block {
+            margin: 60px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.1) 0%, rgba(233, 75, 82, 0.05) 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+        }
+        .quote-text {
+            font-size: 1.2rem;
+            color: #fff;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .quote-author {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .highlight-number {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .pattern-visual {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .pattern-visual h3 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .pattern-bar {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+        }
+        .pattern-label {
+            width: 80px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        .pattern-fill {
+            height: 30px;
+            background: linear-gradient(90deg, var(--primary), rgba(233, 75, 82, 0.8));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .cta-section {
+            margin-top: 80px;
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.15) 0%, rgba(233, 75, 82, 0.1) 100%);
+            border-radius: 20px;
+        }
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: #999;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        .other-reports {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            text-align: center;
+        }
+        .other-reports h3 {
+            margin-bottom: 20px;
+        }
+        .report-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .report-link {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .report-link:hover {
+            background: rgba(230, 47, 110, 0.2);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.png" alt="Data Jam" style="height: 40px;">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#benefits">Benefits</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="contact.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pulse Report Header -->
+    <section class="pulse-header">
+        <div class="container">
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
+            <div style="margin-top: 20px;">
+                <span class="pulse-badge">Pulse Report</span>
+            </div>
+            <h1>Fitness & Leisure Centre</h1>
+            <p class="subtitle">Understanding Footfall Patterns to Optimise Operations</p>
+
+            <div class="pulse-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Business Type</span>
+                    <span class="meta-value">Leisure Operator</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Locations</span>
+                    <span class="meta-value">64 UK Sites</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Peak Hour</span>
+                    <span class="meta-value">12:00 - 13:00</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Top Site</span>
+                    <span class="meta-value">32,000+ daily</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 10px;">The Results</h2>
+            <p style="text-align: center; color: #999; margin-bottom: 40px;">Measurable improvements within three months</p>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <span class="result-number">-15%</span>
+                    <span class="result-label">Staff overtime reduced</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">+28%</span>
+                    <span class="result-label">Lunchtime class attendance</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">-40%</span>
+                    <span class="result-label">Member crowding complaints</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">12%</span>
+                    <span class="result-label">Off-peak membership uptake</span>
+                </div>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="key-stats">
+                <div class="key-stat">
+                    <span class="key-stat-number">64</span>
+                    <span class="key-stat-label">Sites Monitored</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">12-1pm</span>
+                    <span class="key-stat-label">Peak Hour</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">+23%</span>
+                    <span class="key-stat-label">Lunch vs Other Hours</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">-40%</span>
+                    <span class="key-stat-label">Traffic After 6pm</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="narrative-section">
+                <h2>The Challenge</h2>
+                <p>A multi-site leisure centre operator with 64 locations across the UK wanted to better understand visitor patterns to optimise staffing, class schedules, and facility maintenance. Without reliable footfall data, they were making decisions based on guesswork and anecdotal feedback from front-desk staff.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>The Solution</h2>
+                <p>Data Jam's JamBox sensors were installed across all 64 sites, providing real-time footfall analytics without any cameras or personal data collection. Within the first month, clear patterns emerged that transformed their operational approach.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>The Lunchtime Peak Discovery</h2>
+                <p>The data revealed a consistent pattern across all sites: footfall starts building from 5am (early morning swimmers and gym-goers), steadily increases through the morning, then peaks dramatically at lunchtime between <span class="highlight-number">12:00-13:00</span>. This lunchtime surge was 23% higher than any other hour — a pattern that had been underestimated by staff.</p>
+                <p>After 1pm, footfall gradually declines through the afternoon, with a smaller secondary peak around 5-6pm for post-work exercise, before dropping off sharply after 8pm.</p>
+            </div>
+
+            <!-- Visual Pattern -->
+            <div class="pattern-visual">
+                <h3>Daily Footfall Pattern</h3>
+                <div class="pattern-bar">
+                    <span class="pattern-label">5-8am</span>
+                    <div class="pattern-fill" style="width: 35%;">Early birds</div>
+                </div>
+                <div class="pattern-bar">
+                    <span class="pattern-label">8-11am</span>
+                    <div class="pattern-fill" style="width: 55%;">Building</div>
+                </div>
+                <div class="pattern-bar">
+                    <span class="pattern-label">11am-1pm</span>
+                    <div class="pattern-fill" style="width: 100%;">Peak lunch rush</div>
+                </div>
+                <div class="pattern-bar">
+                    <span class="pattern-label">1-5pm</span>
+                    <div class="pattern-fill" style="width: 50%;">Afternoon lull</div>
+                </div>
+                <div class="pattern-bar">
+                    <span class="pattern-label">5-7pm</span>
+                    <div class="pattern-fill" style="width: 65%;">Post-work surge</div>
+                </div>
+                <div class="pattern-bar">
+                    <span class="pattern-label">7-10pm</span>
+                    <div class="pattern-fill" style="width: 30%;">Evening decline</div>
+                </div>
+            </div>
+
+            <div class="narrative-section">
+                <h2>Actions Taken</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h3>Shift Optimisation</h3>
+                        <p>Shifted peak staffing to 11am-2pm instead of the assumed 5-7pm slot. Staff now match actual demand, not assumptions.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Lunch Express Classes</h3>
+                        <p>Launched 30-minute 'Lunch Express' classes targeting the midday rush — quick workouts for time-pressed members.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Smart Maintenance</h3>
+                        <p>Scheduled equipment maintenance during the quieter 8-10am window, minimising member disruption.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Off-Peak Pricing</h3>
+                        <p>Introduced discounted off-peak pricing for 3-5pm to smooth demand and attract price-sensitive members.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Cleaning Schedules</h3>
+                        <p>Optimised cleaning rotations based on actual quiet periods rather than arbitrary schedules.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Capacity Planning</h3>
+                        <p>Used top-site data (32,000+ daily) to plan pool lane allocation and gym floor capacity during peak hours.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote -->
+            <div class="quote-block">
+                <p class="quote-text">"We thought we knew our busiest times — we were wrong. The data showed us patterns we had completely missed, especially the lunchtime surge. Now we staff smarter, not harder."</p>
+                <p class="quote-author">— Operations Director</p>
+            </div>
+
+            <!-- Other Reports -->
+            <div class="other-reports">
+                <h3>Explore More</h3>
+                <div class="report-links">
+                    <a href="pulse-report-retail-london.html" class="report-link">London Retail Pulse Report</a>
+                    <a href="case-study-leisure-center.html" class="report-link">Leisure Centre Data Study</a>
+                    <a href="case-study-fast-food.html" class="report-link">Fast Food Data Study</a>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <h2>Ready to Optimise Your Leisure Operations?</h2>
+                <p>JamBox delivers the same insights for your facility. No cameras, no hassle, just data.</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="Data Jam" style="height: 35px; margin-bottom: 15px;">
+                    <p>Simple footfall analytics for high street businesses.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#benefits">Benefits</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

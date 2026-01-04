@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Report: London Retail Network | Data Jam</title>
+    <meta name="description" content="How a 6-store London retail network used JamBox data to reduce queue times by 18% and boost Black Friday sales by 12%.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        .pulse-header {
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, rgba(230, 47, 110, 0.15) 0%, transparent 100%);
+        }
+        .pulse-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .pulse-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .pulse-header .subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            max-width: 600px;
+            font-weight: 500;
+        }
+        .pulse-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .meta-label {
+            font-size: 0.85rem;
+            color: #999;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .result-card {
+            text-align: center;
+            padding: 35px 25px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.15) 0%, rgba(233, 75, 82, 0.08) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(230, 47, 110, 0.3);
+        }
+        .result-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+        .result-label {
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .key-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .key-stat {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .key-stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            display: block;
+        }
+        .key-stat-label {
+            color: #999;
+            margin-top: 10px;
+        }
+        .narrative-section {
+            margin: 60px 0;
+        }
+        .narrative-section h2 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .narrative-section p {
+            color: #bbb;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .insight-card {
+            padding: 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .insight-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .insight-card p {
+            color: #bbb;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .quote-block {
+            margin: 60px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.1) 0%, rgba(233, 75, 82, 0.05) 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+        }
+        .quote-text {
+            font-size: 1.2rem;
+            color: #fff;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .quote-author {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .seasonal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        .seasonal-table th,
+        .seasonal-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .seasonal-table th {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .seasonal-table td {
+            color: #bbb;
+        }
+        .seasonal-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        .highlight-number {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .cta-section {
+            margin-top: 80px;
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(230, 47, 110, 0.15) 0%, rgba(233, 75, 82, 0.1) 100%);
+            border-radius: 20px;
+        }
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: #999;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        .other-reports {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            text-align: center;
+        }
+        .other-reports h3 {
+            margin-bottom: 20px;
+        }
+        .report-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .report-link {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .report-link:hover {
+            background: rgba(230, 47, 110, 0.2);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.png" alt="Data Jam" style="height: 40px;">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#benefits">Benefits</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="contact.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pulse Report Header -->
+    <section class="pulse-header">
+        <div class="container">
+            <a href="index.html" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
+            <div style="margin-top: 20px;">
+                <span class="pulse-badge">Pulse Report</span>
+            </div>
+            <h1>London Retail Network</h1>
+            <p class="subtitle">Capturing the Rhythm of the High Street</p>
+
+            <div class="pulse-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Business Type</span>
+                    <span class="meta-value">Retail Chain</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Locations</span>
+                    <span class="meta-value">6 London Stores</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Data Period</span>
+                    <span class="meta-value">Sept - Dec 2025</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Impressions</span>
+                    <span class="meta-value">20.8 Million</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 10px;">The Results</h2>
+            <p style="text-align: center; color: #999; margin-bottom: 40px;">Measurable improvements within one trading season</p>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <span class="result-number">-18%</span>
+                    <span class="result-label">Queue times at peak hours</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">-25%</span>
+                    <span class="result-label">Stock-outs at top location</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">+12%</span>
+                    <span class="result-label">Black Friday sales YoY</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-number">-8%</span>
+                    <span class="result-label">Labour cost per transaction</span>
+                </div>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="key-stats">
+                <div class="key-stat">
+                    <span class="key-stat-number">20.8M</span>
+                    <span class="key-stat-label">Total Footfall</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">192K</span>
+                    <span class="key-stat-label">Daily Average</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">364K</span>
+                    <span class="key-stat-label">Black Friday Peak</span>
+                </div>
+                <div class="key-stat">
+                    <span class="key-stat-number">+89%</span>
+                    <span class="key-stat-label">Black Friday vs Average</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="narrative-section">
+                <h2>The Challenge</h2>
+                <p>A major retailer with 6 London locations wanted to understand how footfall patterns varied across their stores and throughout the calendar year. They needed data to inform staffing decisions, promotional timing, and stock allocation — especially for peak trading periods like Black Friday and the Christmas rush.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>The Solution</h2>
+                <p>Data Jam sensors were installed across all 6 locations, capturing four months of continuous footfall data from September through December. The resulting dataset — over 20 million verified impressions — revealed patterns that transformed their approach to peak trading.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>The Lunchtime Shopping Surge</h2>
+                <p>The data revealed a clear daily rhythm. Footfall begins building from 6am with early commuters, accelerates through the morning, then peaks sharply at lunchtime between 12pm-1pm. This lunch hour delivered nearly 2 million impressions — the single most valuable trading hour of the day.</p>
+                <p>After the lunch peak, traffic gradually declines through the afternoon and evening, with approximately 70% of daily footfall occurring during weekday business hours. Weekend traffic, while lower in volume, showed higher dwell times and basket values.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>The Black Friday Discovery</h2>
+                <p>November 29th (Black Friday) delivered the single highest footfall day of the entire measurement period: <span class="highlight-number">364,391 visitors</span> across the network. This was 89% above the daily average — but crucially, the data showed the surge wasn't limited to a single 'doorbusters' hour.</p>
+                <p>Unlike online, where Black Friday traffic concentrates in early morning deal windows, physical store traffic remained elevated throughout the day, from 10am through 8pm. This insight informed a shift from 'flash sale' tactics to all-day promotional pricing in physical stores.</p>
+            </div>
+
+            <div class="narrative-section">
+                <h2>Seasonal Build-Up</h2>
+                <table class="seasonal-table">
+                    <tr>
+                        <th>Month</th>
+                        <th>Total Footfall</th>
+                        <th>Change</th>
+                    </tr>
+                    <tr>
+                        <td>September</td>
+                        <td>3.4 million</td>
+                        <td>Baseline</td>
+                    </tr>
+                    <tr>
+                        <td>October</td>
+                        <td>4.8 million</td>
+                        <td class="highlight-number">+42% vs Sept</td>
+                    </tr>
+                    <tr>
+                        <td>November</td>
+                        <td>7.9 million</td>
+                        <td class="highlight-number">+63% vs Oct</td>
+                    </tr>
+                    <tr>
+                        <td>December</td>
+                        <td>4.8 million</td>
+                        <td>(partial month)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="narrative-section">
+                <h2>Actions Taken</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h3>Peak Staffing</h3>
+                        <p>Doubled lunch-hour staff from 11am-2pm, matching the verified peak trading period.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Black Friday Strategy</h3>
+                        <p>Shifted from 'flash sale' tactics to all-day promotional pricing based on sustained traffic data.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Stock Allocation</h3>
+                        <p>Allocated premium stock to top-performing store (6.4M impressions) to maximise conversion.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3>Demand Spreading</h3>
+                        <p>Created 'Early Bird' promotions for quieter 6-9am slot and scheduled stock replenishment for 6am.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote -->
+            <div class="quote-block">
+                <p class="quote-text">"The data confirmed what we suspected but couldn't prove: lunchtime is our golden hour. Now we staff for reality, not assumption. Black Friday taught us that customers shop all day — not just at 6am."</p>
+                <p class="quote-author">— Head of Retail Operations</p>
+            </div>
+
+            <!-- Other Reports -->
+            <div class="other-reports">
+                <h3>Explore More</h3>
+                <div class="report-links">
+                    <a href="pulse-report-fitness.html" class="report-link">Fitness & Leisure Pulse Report</a>
+                    <a href="case-study-nyc-retail.html" class="report-link">NYC Retail Data Study</a>
+                    <a href="case-study-uk-mall.html" class="report-link">UK Mall Data Study</a>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-section">
+                <h2>Ready to Transform Your Retail Operations?</h2>
+                <p>JamBox delivers the same insights for your business. Simple setup, powerful results.</p>
+                <a href="contact.html" class="btn btn-primary btn-large">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo.png" alt="Data Jam" style="height: 35px; margin-bottom: 15px;">
+                    <p>Simple footfall analytics for high street businesses.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#benefits">Benefits</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Data Jam. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
