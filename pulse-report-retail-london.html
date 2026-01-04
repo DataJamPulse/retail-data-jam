@@ -231,19 +231,23 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="index.html" class="nav-logo">
-                <img src="images/logo.png" alt="Data Jam" style="height: 40px;">
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-gradient.png" alt="Data Jam Retail" class="logo-img">
             </a>
-            <div class="nav-links">
-                <a href="index.html#benefits">Benefits</a>
-                <a href="index.html#use-cases">Use Cases</a>
-                <a href="index.html#pricing">Pricing</a>
-                <a href="contact.html" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html#benefits">Benefits</a></li>
+                <li><a href="index.html#use-cases">Use Cases</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Pulse Report Header -->
     <section class="pulse-header">
@@ -427,18 +431,26 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="site-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="images/logo.png" alt="Data Jam" style="height: 35px; margin-bottom: 15px;">
-                    <p>Simple footfall analytics for high street businesses.</p>
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>Data Jam Retail</h4>
+                    <p>Real-time footfall analytics for high street businesses.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#benefits">Benefits</a>
-                    <a href="index.html#pricing">Pricing</a>
-                    <a href="contact.html">Contact</a>
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="index.html#benefits">Benefits</a></li>
+                        <li><a href="index.html#use-cases">Use Cases</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
